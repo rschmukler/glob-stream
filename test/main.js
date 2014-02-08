@@ -359,6 +359,12 @@ describe('glob-stream', function() {
       });
     });
 
+    it.only('should work with brackets', function(done) {
+      var stream = gs.create('./fixtures/brackets/{a,b}/*.js', {cwd: __dirname});
+      stream.on('error', function(err) { throw err; });
+      stream.on('data', function() { done(); });
+    });
+
     it('should return a file name stream from two globs and a negative', function(done) {
       var stream = gs.create(["./fixtures/*.coffee", "./fixtures/whatsgoingon/*.coffee"], {cwd: __dirname});
       should.exist(stream);
@@ -376,6 +382,5 @@ describe('glob-stream', function() {
         done();
       });
     });
-
   });
 });
